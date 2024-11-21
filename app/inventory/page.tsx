@@ -3,7 +3,7 @@
 import { useSearchParams } from "next/navigation";
 import { Filters } from "./Filters";
 import { ProductsInventory } from "./ProductsInventory";
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { getProducts, Product } from "@/utils/supabase/products";
 
 export default function Inventory() {
@@ -33,10 +33,12 @@ export default function Inventory() {
   const hasQueryParams = params.toString() !== ''
   return (
     <>
-    {hasQueryParams 
-      ? <Filters searchParams={searchParams} /> 
-      : <ProductsInventory data={products} />
-    }
+    <Suspense>
+      {hasQueryParams 
+        ? <Filters searchParams={searchParams} /> 
+        : <ProductsInventory data={products} />
+      }
+    </Suspense>
     </>
   );
 }
