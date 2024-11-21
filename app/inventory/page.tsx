@@ -6,32 +6,19 @@ import { getProducts, Product } from "@/utils/supabase/products";
 import Loader from "@/components/Loader/Loader";
 
 export default function Inventory() {
-  let params = new URLSearchParams(window.document.location.search);
-  const [searchParams, setSearchParams] = useState({
-    make: "",
-    model: "",
-    minPrice: "",
-    maxPrice: "",
-  });
   const [products, setProducts] = useState<Product[]>([]);
-
-  // const searchParams = {
-  //   make: params.get("make"),
-  //   model: params.get("model"),
-  //   minPrice: params.get("minPrice"),
-  //   maxPrice: params.get("maxPrice"),
-  // };
+  const [searchParams, setSearchParams] = useState({
+    make: '',
+    model: '',
+    minPrice: '',
+    maxPrice: ''
+  });
+  const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      const params = new URLSearchParams(window.document.location.search);
-      setSearchParams({
-        make: params.get("make") || "",
-        model: params.get("model") || "",
-        minPrice: params.get("minPrice") || "",
-        maxPrice: params.get("maxPrice") || "",
-      });
-    }
+    // This effect will only run on the client
+    setIsClient(true);
+
     const fetchData = async () => {
       try {
         const data = await getProducts();
@@ -45,15 +32,26 @@ export default function Inventory() {
     fetchData();
   }, []);
 
-  const hasQueryParams = params.toString() !== "";
+  useEffect(() => {
+    if (isClient) {
+      const params = new URLSearchParams(window.location.search);
+      setSearchParams({
+        make: params.get("make") || '',
+        model: params.get("model") || '',
+        minPrice: params.get("minPrice") || '',
+        maxPrice: params.get("maxPrice") || ''
+      });
+    }
+  }, [isClient]);
+
+  const hasQueryParams = searchParams.make || searchParams.model || searchParams.minPrice || searchParams.maxPrice;
 
   return (
-    <Suspense fallback={<Loader message="Loading Products..." />}>
-      {hasQueryParams ? (
-        <Filters searchParams={searchParams} />
-      ) : (
-        <ProductsInventory data={products} />
-      )}
+    <Suspense fallback={<Loader message="Loading Products..."/>}>
+      {hasQueryParams
+        ? <Filters searchParams={searchParams} />
+        : <ProductsInventory data={products} />
+      }
     </Suspense>
   );
 }
