@@ -5,6 +5,7 @@ import { Filters } from "./Filters";
 import { ProductsInventory } from "./ProductsInventory";
 import { Suspense, useEffect, useState } from "react";
 import { getProducts, Product } from "@/utils/supabase/products";
+import Loader from "@/components/Loader/Loader";
 
 export default function Inventory() {
   const params = useSearchParams();
@@ -32,8 +33,7 @@ export default function Inventory() {
   },[])
   const hasQueryParams = params.toString() !== ''
   return (
-  
-    <Suspense>
+    <Suspense fallback={<Loader message="loading..."/>}>
       {hasQueryParams 
         ? <Filters searchParams={searchParams} /> 
         : <ProductsInventory data={products} />
