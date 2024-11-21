@@ -21,7 +21,7 @@ export default function Testimonials() {
       username: "Carlos Pérez"
     },
     {
-      avatar: "https://randomuser.me/api/portraits/women/44.jpg",
+      avatar: "https://randomuser.me/api/portraits/women/62.jpg",
       testimonial: "I needed a car urgently and Industry Auto solved my problem. They have a great variety of vehicles and helped me choose the one that best suited my needs.",
       username: "Sofía López"
     },
