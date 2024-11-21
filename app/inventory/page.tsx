@@ -24,7 +24,7 @@ export default function Inventory() {
 
   useEffect(() => {
     if (typeof window !== "undefined") {
-      const params = new URLSearchParams(window.location.search);
+      const params = new URLSearchParams(window.document.location.search);
       setSearchParams({
         make: params.get("make") || "",
         model: params.get("model") || "",
