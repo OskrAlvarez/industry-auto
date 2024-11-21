@@ -7,37 +7,53 @@ import Loader from "@/components/Loader/Loader";
 
 export default function Inventory() {
   let params = new URLSearchParams(window.document.location.search);
-  const [products, setProducts] = useState<Product[]>([])
+  const [searchParams, setSearchParams] = useState({
+    make: "",
+    model: "",
+    minPrice: "",
+    maxPrice: "",
+  });
+  const [products, setProducts] = useState<Product[]>([]);
 
-  const searchParams = {
-    make: params.get("make"),
-    model: params.get("model"),
-    minPrice: params.get("minPrice"),
-    maxPrice: params.get("maxPrice"),
-  };
+  // const searchParams = {
+  //   make: params.get("make"),
+  //   model: params.get("model"),
+  //   minPrice: params.get("minPrice"),
+  //   maxPrice: params.get("maxPrice"),
+  // };
 
   useEffect(() => {
+    if (typeof window !== "undefined") {
+      const params = new URLSearchParams(window.location.search);
+      setSearchParams({
+        make: params.get("make") || "",
+        model: params.get("model") || "",
+        minPrice: params.get("minPrice") || "",
+        maxPrice: params.get("maxPrice") || "",
+      });
+    }
     const fetchData = async () => {
       try {
-        const data = await getProducts()
+        const data = await getProducts();
         if (data) {
-          setProducts(data)
+          setProducts(data);
         }
       } catch (error) {
-        console.error(error)
+        console.error(error);
       }
-    }
-    fetchData()
-  },[])
+    };
+    fetchData();
+  }, []);
 
-  const hasQueryParams = params.toString() !== ''
+  const hasQueryParams = params.toString() !== "";
 
   return (
-    <Suspense fallback={<Loader message="Loading Products..."/>}>
-      {hasQueryParams 
-        ? <Filters searchParams={searchParams} /> 
-        : <ProductsInventory data={products} />
-      }
+    <Suspense fallback={<Loader message="Loading Products..." />}>
+      {hasQueryParams ? (
+        <Filters searchParams={searchParams} />
+      ) : (
+        <ProductsInventory data={products} />
+      )}
     </Suspense>
   );
 }
