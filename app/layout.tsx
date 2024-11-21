@@ -43,7 +43,7 @@ export default function RootLayout({
               </div>
             </div>
           </main>
-          <div className="fixed right-4 bottom-4">
+          <div className="fixed right-6 bottom-6 md:right-4 md:bottom-4">
             <WhatsAppButton phoneNumber="+14709980313"/>
           </div>
         </ThemeProvider>
