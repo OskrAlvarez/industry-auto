@@ -32,13 +32,12 @@ export default function Inventory() {
   },[])
   const hasQueryParams = params.toString() !== ''
   return (
-    <>
+  
     <Suspense>
       {hasQueryParams 
         ? <Filters searchParams={searchParams} /> 
         : <ProductsInventory data={products} />
       }
     </Suspense>
-    </>
   );
 }
