@@ -24,7 +24,7 @@ export function ProductsInventory({ data }: Props) {
     <Suspense fallback={<Loader message="loading products..."/>}>
       <section className="max-w-[1000px] mx-auto">
         <h1 className="text-2xl py-4">Inventory: </h1>
-        <div className="grid grid-cols-3 place-items-center gap-5 p-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 place-items-center gap-5 p-8">
         {
           data?.length === 0 
           ? (
