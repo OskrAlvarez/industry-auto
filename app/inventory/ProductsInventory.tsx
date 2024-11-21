@@ -4,7 +4,7 @@ import Loader from "@/components/Loader/Loader"
 import { Product } from "@/utils/supabase/products"
 import { convertToArray } from "@/utils/utils"
 import Link from "next/link"
-import { useState } from "react"
+import { Suspense, useState } from "react"
 import { PaginationComponent } from "./Pagination"
 
 interface Props {
@@ -21,37 +21,39 @@ export function ProductsInventory({ data }: Props) {
   const firstIndex = lastIndex - productsPerPage;
 
   return (
-    <section className="max-w-[1000px] mx-auto">
-      <h1 className="text-2xl py-4">Inventory: </h1>
-      <div className="grid grid-cols-3 place-items-center gap-5 p-8">
-      {
-        data?.length === 0 
-        ? (
-          <div className="col-span-3">
-            <Loader message="Loading Products" />
-          </div>
+    <Suspense fallback={<Loader message="loading products..."/>}>
+      <section className="max-w-[1000px] mx-auto">
+        <h1 className="text-2xl py-4">Inventory: </h1>
+        <div className="grid grid-cols-3 place-items-center gap-5 p-8">
+        {
+          data?.length === 0 
+          ? (
+            <div className="col-span-3">
+              <Loader message="Loading Products" />
+            </div>
+          )
+          : (data.map(product => (
+            <Link 
+              key={`${product.make}-${product.id}`} 
+              href={`/detail/${product.id}`}
+            >
+              <CardProduct 
+                imageUrl={convertToArray(product.image_urls)} 
+                title={`${product.make} ${product.model} ${product.year}`}
+                price={product.price}
+              />
+            </Link>
+          )).slice(firstIndex, lastIndex)
         )
-        : (data.map(product => (
-          <Link 
-            key={`${product.make}-${product.id}`} 
-            href={`/detail/${product.id}`}
-          >
-            <CardProduct 
-              imageUrl={convertToArray(product.image_urls)} 
-              title={`${product.make} ${product.model} ${product.year}`}
-              price={product.price}
-            />
-          </Link>
-        )).slice(firstIndex, lastIndex)
-      )
-      }
-    </div>
-    <PaginationComponent 
-      itemsPerPage={productsPerPage}
-      currentPage={currentPage}
-      setCurrentPage={setCurrentPage}
-      totalItems={totalProducts}
-    />
-    </section>
+        }
+      </div>
+      <PaginationComponent 
+        itemsPerPage={productsPerPage}
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
+        totalItems={totalProducts}
+      />
+      </section>
+    </Suspense>
   )
 }
