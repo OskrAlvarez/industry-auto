@@ -6,9 +6,9 @@ export default function AboutSection() {
     <section className="py-16 px-4 md:px-8 bg-background text-foreground">
       <div className="max-w-6xl mx-auto space-y-12">
         <div className="text-center space-y-4">
-          <h2 className="text-4xl font-bold sm:text-5xl">About Industry Auto</h2>
+          <h2 className="text-4xl font-bold sm:text-5xl">Industry Auto</h2>
           <p className="max-w-3xl mx-auto text-lg">
-            Born from a passion for cars and the need for a reliable used car market, Industry Auto emerged in 2013 to offer a safe and transparent alternative in the purchase of used vehicles, putting the customer at the center of everything.
+            Born from a passion for cars and the need for a reliable used car market, Industry Auto emerged in 2023 to offer a safe and transparent alternative in the purchase of used vehicles, putting the customer at the center of everything.
           </p>
         </div>
 
