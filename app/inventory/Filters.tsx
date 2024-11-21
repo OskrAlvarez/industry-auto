@@ -67,7 +67,7 @@ export function Filters ({ searchParams }: Props) {
             </>)}
           </div>
         </div>
-        <div className="grid grid-cols-3 place-items-center gap-5 p-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 place-items-center gap-5 p-8">
         {
           products.length === 0 
             ? (<h3>There's no results for your search!</h3>)
