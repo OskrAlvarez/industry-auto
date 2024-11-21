@@ -6,7 +6,7 @@ import { getProducts, Product } from "@/utils/supabase/products";
 import Loader from "@/components/Loader/Loader";
 
 export default function Inventory() {
-  let params = new URLSearchParams(document.location.search);
+  let params = new URLSearchParams(window.document.location.search);
   const [products, setProducts] = useState<Product[]>([])
 
   const searchParams = {
