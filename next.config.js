@@ -14,9 +14,6 @@ const nextConfig = {
         pathname: "/storage/v1/object/public/product_bucket/images/**",
       },
     ]
-  },
-  experimental: {
-    missingSuspenseWithCSRBailout: false,
   }
 };
 
