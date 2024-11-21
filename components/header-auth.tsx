@@ -47,7 +47,7 @@ export default async function AuthButton() {
     </div>
   ) : (
     <div className="flex gap-2 items-center">
-      <Button asChild size="sm" variant={"outline"}>
+      <Button className="hidden md:flex" asChild size="sm" variant={"outline"}>
         <Link href="/sign-in">Sign in</Link>
       </Button>
       <ThemeSwitcher />
