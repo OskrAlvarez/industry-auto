@@ -1,15 +1,20 @@
-import Hero from "@/components/hero";
-import ConnectSupabaseSteps from "@/components/tutorial/connect-supabase-steps";
-import SignUpUserSteps from "@/components/tutorial/sign-up-user-steps";
-import { hasEnvVars } from "@/utils/supabase/check-env-vars";
+import { Slider } from "@/components/sections/Slider";
+import { Info } from '@/components/sections/Info/Info'
+import { GoogleMaps } from "@/components/sections/GoogleMaps";
+import { Schedule } from "@/components/sections/Schedule";
+import { Footer } from "@/components/sections/Footer";
+import Inventory from "@/components/sections/Inventory";
 
 export default async function Index() {
   return (
     <>
-      <Hero />
-      <main className="flex-1 flex flex-col gap-6 px-4">
-        <h2 className="font-medium text-xl mb-4">Next steps</h2>
-        {hasEnvVars ? <SignUpUserSteps /> : <ConnectSupabaseSteps />}
+      <main>
+        <Slider />
+        <Inventory />
+        <Info />
+        <GoogleMaps />
+        <Schedule />
+        <Footer /> 
       </main>
     </>
   );

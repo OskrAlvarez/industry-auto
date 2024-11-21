@@ -1,9 +1,10 @@
 import { signOutAction } from "@/app/actions";
-import { hasEnvVars } from "@/utils/supabase/check-env-vars";
 import Link from "next/link";
-import { Badge } from "./ui/badge";
 import { Button } from "./ui/button";
 import { createClient } from "@/utils/supabase/server";
+import { ThemeSwitcher } from "./theme-switcher";
+import { LogOut } from "lucide-react";
+import { FaceBookIcon, InstagramIcon } from "./ui/icons";
 
 export default async function AuthButton() {
   const supabase = await createClient();
@@ -12,59 +13,64 @@ export default async function AuthButton() {
     data: { user },
   } = await supabase.auth.getUser();
 
-  if (!hasEnvVars) {
-    return (
-      <>
-        <div className="flex gap-4 items-center">
-          <div>
-            <Badge
-              variant={"default"}
-              className="font-normal pointer-events-none"
-            >
-              Please update .env.local file with anon key and url
-            </Badge>
-          </div>
-          <div className="flex gap-2">
-            <Button
-              asChild
-              size="sm"
-              variant={"outline"}
-              disabled
-              className="opacity-75 cursor-none pointer-events-none"
-            >
-              <Link href="/sign-in">Sign in</Link>
-            </Button>
-            <Button
-              asChild
-              size="sm"
-              variant={"default"}
-              disabled
-              className="opacity-75 cursor-none pointer-events-none"
-            >
-              <Link href="/sign-up">Sign up</Link>
-            </Button>
-          </div>
-        </div>
-      </>
-    );
-  }
   return user ? (
-    <div className="flex items-center gap-4">
-      Hey, {user.email}!
-      <form action={signOutAction}>
-        <Button type="submit" variant={"outline"}>
-          Sign out
-        </Button>
-      </form>
+    <div className="flex items-center justify-between">
+      <div className="flex items-center gap-4">
+        <ThemeSwitcher />
+        Hey, {user.email}!
+        <form action={signOutAction}>
+          <Button type="submit" variant={"outline"}>
+            <LogOut />
+          </Button>
+        </form>
+        <div className="social-media flex gap-2">
+          <Link
+            href={
+              "https://www.facebook.com/profile.php?id=61552040243476&mibextid=ZbWKwL"
+            }
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <FaceBookIcon />
+          </Link>
+          <Link
+            href={
+              "https://www.instagram.com/autoindustryllc?igsh=aGQ0bGE1cDByNHRn"
+            }
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <InstagramIcon />
+          </Link>
+        </div>
+      </div>
     </div>
   ) : (
-    <div className="flex gap-2">
+    <div className="flex gap-2 items-center">
       <Button asChild size="sm" variant={"outline"}>
         <Link href="/sign-in">Sign in</Link>
       </Button>
-      <Button asChild size="sm" variant={"default"}>
-        <Link href="/sign-up">Sign up</Link>
-      </Button>
+      <ThemeSwitcher />
+      <div className="social-media flex gap-2">
+        <Link
+          href={
+            "https://www.facebook.com/profile.php?id=61552040243476&mibextid=ZbWKwL"
+          }
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <FaceBookIcon />
+        </Link>
+        <Link
+          href={
+            "https://www.instagram.com/autoindustryllc?igsh=aGQ0bGE1cDByNHRn"
+          }
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <InstagramIcon />
+        </Link>
+      </div>
     </div>
   );
 }
