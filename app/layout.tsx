@@ -11,6 +11,7 @@ const defaultUrl = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
   : "http://localhost:3000";
 
+const productionUrl = "https://www.industryautollc.com"
 export const metadata = {
   metadataBase: new URL(defaultUrl),
   title: "Industry Auto",
@@ -19,9 +20,9 @@ export const metadata = {
   openGraph: { 
     title: "Industry Auto", 
     description: "The site where you find the best car in the sector.", 
-    url: defaultUrl, 
+    url: productionUrl, 
     images: [{ 
-      url: `${defaultUrl}/images/industry-auto-logo.png`, 
+      url: `${productionUrl}/public/images/industry-auto-logo.png`, 
       width: 800, 
       height: 600, 
       alt: "Imagen de Industry Auto", 
@@ -29,7 +30,7 @@ export const metadata = {
     twitter: { 
       title: "Industry Auto", 
       description: "The site where you find the best car in the sector.", 
-      image: `${defaultUrl}/images/industry-auto-logo.png`, 
+      image: `${productionUrl}/public/images/industry-auto-logo.png`, 
       card: "summary_large_image", 
     },
 };
