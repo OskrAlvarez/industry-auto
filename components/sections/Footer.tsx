@@ -1,5 +1,6 @@
 import { Mail } from "lucide-react";
 import { FaceBookIcon, InstagramIcon } from "../ui/icons";
+import Link from "next/link";
 
 export function Footer () {
   return (
@@ -17,11 +18,23 @@ export function Footer () {
           </div>
           <div className="flex items-center gap-2 text-white">
             <FaceBookIcon  />
-            <span>Industry Auto LLC</span>
+            <Link 
+              href={"https://www.facebook.com/profile.php?id=61552040243476&mibextid=ZbWKwL"}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+            Industry Auto LLC
+            </Link>
           </div>
           <div className="flex items-center gap-2 text-white">
             <InstagramIcon />
-            <span>@autoindustryllc</span>
+            <Link 
+              href={"https://www.instagram.com/autoindustryllc?igsh=aGQ0bGE1cDByNHRn"}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              @autoindustryllc
+            </Link>
           </div>
         </div>
       </div>
