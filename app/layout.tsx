@@ -6,7 +6,6 @@ import "./globals.css";
 import { NavBar } from "@/components/sections/NavBar";
 import { Toaster } from "sonner";
 import WhatsAppButton from "@/components/WhatsAppButton";
-import Logo from "@/public/images/industry-auto-logo.png";
 
 const defaultUrl = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
@@ -16,13 +15,13 @@ export const metadata = {
   metadataBase: new URL(defaultUrl),
   title: "Industry Auto",
   description: "The site where you find the best car in the sector.",
-  keywords: '',
+  keywords: 'Car, Auto, Sales, Atlanta, Industry, Used',
   openGraph: { 
     title: "Industry Auto", 
     description: "The site where you find the best car in the sector.", 
     url: defaultUrl, 
     images: [{ 
-      url: `${defaultUrl}/${Logo}`, 
+      url: `${defaultUrl}/public/images/industry-auto-logo.png`, 
       width: 800, 
       height: 600, 
       alt: "Imagen de Industry Auto", 
@@ -30,7 +29,7 @@ export const metadata = {
     twitter: { 
       title: "Industry Auto", 
       description: "The site where you find the best car in the sector.", 
-      image: `${defaultUrl}/${Logo}`, 
+      image: `${defaultUrl}/public/images/industry-auto-logo.png`, 
       card: "summary_large_image", 
     },
 };
