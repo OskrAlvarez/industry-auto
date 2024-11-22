@@ -3,7 +3,7 @@ import Link from "next/link";
 import { Button } from "./ui/button";
 import { createClient } from "@/utils/supabase/server";
 import { ThemeSwitcher } from "./theme-switcher";
-import { LogOut } from "lucide-react";
+import { LogOut, Mail, UserCircle2Icon } from "lucide-react";
 import { FaceBookIcon, InstagramIcon } from "./ui/icons";
 
 export default async function AuthButton() {
@@ -17,7 +17,12 @@ export default async function AuthButton() {
     <div className="flex items-center justify-between">
       <div className="flex items-center gap-4">
         <ThemeSwitcher />
-        Hey, {user.email}!
+        <div className="flex flex-col items-center">
+        <span className="text-sm flex gap-2 items-center">
+          <UserCircle2Icon />
+          Hey, {user.email}!
+        </span>
+        </div>
         <form action={signOutAction}>
           <Button type="submit" variant={"outline"}>
             <LogOut />
@@ -47,8 +52,12 @@ export default async function AuthButton() {
     </div>
   ) : (
     <div className="flex gap-2 items-center">
+      <span className="hidden md:flex md:gap-2 md:items-center md:text-sm">
+        <Mail className="h-4 w-4" />
+        industryautollc@gmail.com
+      </span>
       <Button className="hidden md:flex" asChild size="sm" variant={"outline"}>
-        <Link href="/sign-in">Sign in</Link>
+        <Link className="border border-slate-300" href="/sign-in">Sign in</Link>
       </Button>
       <ThemeSwitcher />
       <div className="social-media flex gap-2">
