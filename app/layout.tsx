@@ -22,7 +22,7 @@ export const metadata = {
     description: "The site where you find the best car in the sector.", 
     url: productionUrl, 
     images: [{ 
-      url: `${productionUrl}/public/images/industry-auto-logo.png`, 
+      url: `${productionUrl}/images/industry-auto-logo.png`, 
       width: 800, 
       height: 600, 
       alt: "Imagen de Industry Auto", 
@@ -30,7 +30,7 @@ export const metadata = {
     twitter: { 
       title: "Industry Auto", 
       description: "The site where you find the best car in the sector.", 
-      image: `${productionUrl}/public/images/industry-auto-logo.png`, 
+      image: `${productionUrl}/images/industry-auto-logo.png`, 
       card: "summary_large_image", 
     },
 };
