@@ -6,6 +6,7 @@ import "./globals.css";
 import { NavBar } from "@/components/sections/NavBar";
 import { Toaster } from "sonner";
 import WhatsAppButton from "@/components/WhatsAppButton";
+import Logo from "@/public/images/industry-auto-logo.png";
 
 const defaultUrl = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
@@ -15,6 +16,23 @@ export const metadata = {
   metadataBase: new URL(defaultUrl),
   title: "Industry Auto",
   description: "The site where you find the best car in the sector.",
+  keywords: '',
+  openGraph: { 
+    title: "Industry Auto", 
+    description: "The site where you find the best car in the sector.", 
+    url: defaultUrl, 
+    images: [{ 
+      url: `${defaultUrl}/${Logo}`, 
+      width: 800, 
+      height: 600, 
+      alt: "Imagen de Industry Auto", 
+    },],}, 
+    twitter: { 
+      title: "Industry Auto", 
+      description: "The site where you find the best car in the sector.", 
+      image: `${defaultUrl}/${Logo}`, 
+      card: "summary_large_image", 
+    },
 };
 
 export default function RootLayout({
