@@ -11,14 +11,16 @@ import { Control, Controller, FieldError } from "react-hook-form";
 import { FormProductData } from "@/app/dashboard/FormSchema/FormSchema";
 import { useState } from "react";
 import { CustomSelectModel } from "./CustomSelectModel";
+import { Label } from "@/components/ui/label";
 
 interface SelectProps {
   name: keyof FormProductData;
   control: Control<FormProductData>;
   error?: FieldError;
+  label: string;
 }
 
-export function CustomMakeSelect({ name, control, error }: SelectProps) {
+export function CustomMakeSelect({ name, control, error, label }: SelectProps) {
   const [make, setMake] = useState("");
   const [model, setModel] = useState("");
   const [models, setModels] = useState<string[]>([]);
@@ -31,6 +33,7 @@ export function CustomMakeSelect({ name, control, error }: SelectProps) {
   return (
     <div className="flex gap-3">
       <div className="w-2/4">
+        <Label>{label}</Label>
         <Controller
           name={name}
           control={control}
@@ -62,6 +65,7 @@ export function CustomMakeSelect({ name, control, error }: SelectProps) {
       </div>
       <div className="w-2/4">
         <CustomSelectModel
+          label="Select a Model"
           control={control}
           name="model"
           models={models}

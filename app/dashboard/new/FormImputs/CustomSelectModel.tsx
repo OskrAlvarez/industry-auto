@@ -7,6 +7,7 @@ import {
 } from "@/components/ui/select";
 import { Control, Controller, FieldError } from "react-hook-form";
 import { FormProductData } from "../../FormSchema/FormSchema";
+import { Label } from "@/components/ui/label";
 
 
 interface ModelSelectProps {
@@ -15,11 +16,13 @@ interface ModelSelectProps {
   models: string[];
   error?: FieldError;
   make: string;
+  label: string;
 }
 
-export function CustomSelectModel({ name, control, models, make, error }: ModelSelectProps) {
+export function CustomSelectModel({ name, control, models, make, error, label }: ModelSelectProps) {
   return (
     <div>
+      <Label>{label}</Label>
       <Controller
         name={name}
         control={control}

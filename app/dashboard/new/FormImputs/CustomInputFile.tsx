@@ -62,6 +62,7 @@ export function CustomInputFile({imageUrls, setImageUrls, ref}: Props) {
             <Button
               variant={"outline"}
               onClick={() => ref.current?.click()}
+              type="button"
               >
               Upload Images
             </Button>

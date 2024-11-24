@@ -1,6 +1,7 @@
 import { Control, Controller, FieldError } from "react-hook-form";
 import { FormProductData } from "@/app/dashboard/FormSchema/FormSchema";
 import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 
 interface InputProps {
   name: keyof FormProductData;
@@ -8,6 +9,7 @@ interface InputProps {
   placeholder: string;
   control: Control<FormProductData>;
   error?: FieldError;
+  label: string;
 }
 
 export function CustomInput({
@@ -16,9 +18,11 @@ export function CustomInput({
   placeholder,
   control,
   error,
+  label
 }: InputProps) {
   return (
     <div className="form-group">
+      <Label>{label}</Label>
       <Controller
         name={name}
         control={control}
