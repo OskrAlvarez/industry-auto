@@ -22,7 +22,7 @@ import {
 } from "@/app/dashboard/FormSchema/FormSchema";
 import { toast } from "sonner";
 import { convertToArray } from "@/utils/utils";
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 
@@ -33,6 +33,8 @@ interface FormProductToEdit {
 export function FormProduct({ carProduct }: FormProductToEdit) {
   const imageInputRef = useRef<HTMLInputElement>(null);
   const formRef = useRef<HTMLFormElement>(null);
+  const [redirectToDashboard, setRedirectToDashboard] = useState(false);
+  const router = useRouter();
   const initialImagesState = carProduct
     ? convertToArray(carProduct[0]?.image_urls)
     : [];
@@ -99,22 +101,25 @@ export function FormProduct({ carProduct }: FormProductToEdit) {
     if (carProduct) {
       console.log("Edit Mode");
       try {
-        // Obtener URLs originales desde el producto existente y asegurar que sea un array 
+        // Obtener URLs originales desde el producto existente y asegurar que sea un array
         const originalUrls: string[] = carProduct[0]?.image_urls
-        ? Array.isArray(carProduct[0].image_urls)
-          ? carProduct[0].image_urls
-          : JSON.parse(carProduct[0].image_urls)
-        : [];
+          ? Array.isArray(carProduct[0].image_urls)
+            ? carProduct[0].image_urls
+            : JSON.parse(carProduct[0].image_urls)
+          : [];
         // Determinar imágenes a eliminar
-        const imagesToDelete = originalUrls.filter(url => !imageUrls.includes(url));
+        const imagesToDelete = originalUrls.filter(
+          (url) => !imageUrls.includes(url)
+        );
         let newUrls: string[] = [];
 
         if (imagesToDelete.length > 0) {
-          for (const image of imagesToDelete) {
-            await deleteImageFromStorage(image);
-            // Asegúrate de que tienes esta función implementada
-            console.log("Deleted image:", image);
-          }
+          await Promise.all(
+            imagesToDelete.map(async (image) => {
+              await deleteImageFromStorage(image);
+              console.log("Deleted image:", image);
+            })
+          );
         }
         // Subir nuevas imágenes
         const newImages = imageUrls.filter((url) => url.startsWith("blob:"));
@@ -131,8 +136,10 @@ export function FormProduct({ carProduct }: FormProductToEdit) {
           }
           newUrls.push(imageUrl);
         } // Combinar URLs existentes y nuevas sin duplicados
-        const remainingUrls = originalUrls.filter(url => !imagesToDelete.includes(url)); 
-        const uniqueUrls = [...new Set([...remainingUrls, ...newUrls])]; 
+        const remainingUrls = originalUrls.filter(
+          (url) => !imagesToDelete.includes(url)
+        );
+        const uniqueUrls = [...new Set([...remainingUrls, ...newUrls])];
         setImageUrls(uniqueUrls);
         // Crear el objeto de datos actualizado
         const dataToUpdate = {
@@ -143,14 +150,17 @@ export function FormProduct({ carProduct }: FormProductToEdit) {
           user_id: userId,
           image_urls: uniqueUrls,
         }; // Llamar a la función de actualización de producto
-        await updateProduct(Number(carProduct[0].id), dataToUpdate);
+        const carProd = await updateProduct(
+          Number(carProduct[0].id),
+          dataToUpdate
+        );
         // Asegúrate de tener la función updateProduct implementada
-        
+        if (carProd) {
+          toast.success("Product Updated successfully");
+          setRedirectToDashboard(true); // Establece la redirección
+        }
       } catch (error) {
         console.error(error);
-      } finally {
-        toast.success("Product Updated successfully");
-        redirect('/dashboard')
       }
     } else {
       console.log("Create Mode");
@@ -168,15 +178,21 @@ export function FormProduct({ carProduct }: FormProductToEdit) {
           };
           await insertProduct(product);
           reset();
+          toast.success("Product Created Successfully");
+          setRedirectToDashboard(true); // Establece la redirección
         }
       } catch (error) {
         console.error(error);
-      } finally {
-        toast.success("Product Created Successfully");
-        redirect('/dashboard')
       }
     }
   };
+
+  // Redirecciona fuera de los bloques try/catch
+  useEffect(() => {
+    if (redirectToDashboard) {
+      router.push("/dashboard");
+    }
+  }, [redirectToDashboard, router]);
   return (
     <div className="flex justify-center items-center pt-20 max-w-[768px] mx-auto">
       <Button className="self-start" variant={"outline"} asChild>
@@ -190,10 +206,15 @@ export function FormProduct({ carProduct }: FormProductToEdit) {
         onSubmit={handleSubmit(onSubmit)}
         className="flex flex-col gap-5 w-full"
       >
-        <CustomInputFile ref={imageInputRef} imageUrls={imageUrls} setImageUrls={setImageUrls} />
-        <CustomMakeSelect control={control} name="make" error={errors.make} />
+        <CustomInputFile
+          ref={imageInputRef}
+          imageUrls={imageUrls}
+          setImageUrls={setImageUrls}
+        />
+        <CustomMakeSelect control={control} name="make" error={errors.make} label="Select a Make" />
         <div className="flex gap-3 items-center justify-between">
           <CustomInput
+            label="Price"
             type="text"
             control={control}
             name="price"
@@ -201,6 +222,7 @@ export function FormProduct({ carProduct }: FormProductToEdit) {
             error={errors.price}
           />
           <CustomInput
+            label="year"
             type="text"
             control={control}
             name="year"
@@ -210,6 +232,7 @@ export function FormProduct({ carProduct }: FormProductToEdit) {
         </div>
         <div className="flex gap-3 items-center justify-between">
           <CustomInput
+            label="Odometer"
             type="text"
             control={control}
             name="odometer"
@@ -217,6 +240,7 @@ export function FormProduct({ carProduct }: FormProductToEdit) {
             error={errors.odometer}
           />
           <CustomInput
+            label="Engine"
             type="text"
             control={control}
             name="engine"
@@ -226,6 +250,7 @@ export function FormProduct({ carProduct }: FormProductToEdit) {
         </div>
         <div className="flex gap-3 items-center justify-between">
           <CustomInput
+            label="Transmission"
             type="text"
             control={control}
             name="transmission"
@@ -233,6 +258,7 @@ export function FormProduct({ carProduct }: FormProductToEdit) {
             error={errors.transmission}
           />
           <CustomInput
+            label="DriveTrain"
             type="text"
             control={control}
             name="drivetrain"
@@ -242,6 +268,7 @@ export function FormProduct({ carProduct }: FormProductToEdit) {
         </div>
         <div className="flex gap-3 items-center justify-between">
           <CustomInput
+            label="Fuel"
             type="text"
             control={control}
             name="fuel"
@@ -249,6 +276,7 @@ export function FormProduct({ carProduct }: FormProductToEdit) {
             error={errors.fuel}
           />
           <CustomInput
+            label="VNI"
             type="text"
             control={control}
             name="VNI"
@@ -257,6 +285,7 @@ export function FormProduct({ carProduct }: FormProductToEdit) {
           />
         </div>
         <CustomTextArea
+          label="Description"
           control={control}
           name="description"
           placeholder="Description..."
