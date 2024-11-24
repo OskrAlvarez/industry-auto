@@ -93,7 +93,7 @@ export const cars: Car[] = [
   {
     id: 15,
     make: "Kia",
-    models: ["Forte", "Seltos", "Stinger", "Sendona"],
+    models: ["Forte", "Seltos", "Stinger", "Sedona"],
   },
   {
     id: 16,
