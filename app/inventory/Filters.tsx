@@ -78,9 +78,8 @@ export function Filters({ searchParams }: Props) {
             <h3>There's no results for your search!</h3>
           ) : (
             products.map((product, index) => (
-              <Link href={`/detail/${product.id}`}>
+              <Link key={`${product.id}-${index}`} href={`/detail/${product.id}`}>
                 <CardProduct
-                  key={`product-${product.id}-00${index}`}
                   imageUrl={convertToArray(product.image_urls)}
                   title={`${product.make} ${product.model} ${product.year}`}
                   price={product.price}
