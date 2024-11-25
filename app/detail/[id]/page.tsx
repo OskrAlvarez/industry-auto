@@ -76,7 +76,7 @@ export default function ProductDetail () {
                 )
             }
           </div>
-          <div className="flex space-x-4">
+          <div className="grid grid-cols-3 gap-2 max-w-[280px] md:grid-cols-5 md:max-w-md md:mx-0">
             {productImages.map((thumb, index) => (
               <button
                 key={index}
