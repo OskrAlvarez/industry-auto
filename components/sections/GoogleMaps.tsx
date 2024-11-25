@@ -3,9 +3,16 @@ import Image from "next/image";
 export function GoogleMaps() {
   return (
     <div className="p-6 md:px-0">
-      <p className="text-center font-light text-base pb-6">
-        6428 Dawson Blvd Ste 1224, Norcross, GA 30093 <span>470-998-0313</span>
+     <div className="flex flex-col items-center text-lg pt-3 max-w-xl mx-auto mb-3">
+      <p className="font-light border border-slate-400 mb-2 p-2 rounded-lg pt-3">
+      <strong className="text-red-700 font-bold">Parking Lot: </strong> 
+      6108 Memorial Dr, Stone Mountain, GA 30083
       </p>
+        <p className="text-center font-light text-lg p-2 border border-slate-400 rounded-lg">
+        <strong className="text-red-700 font-bold">Headquarter: </strong> 
+          6428 Dawson Blvd Ste 1224, Norcross, GA 30093 <span>470-998-0313</span>
+        </p>
+     </div>
       <section className="max-w-[1000px] mx-auto flex flex-col md:flex-row gap-5 justify-between items-center">
         <div>
           <Image
