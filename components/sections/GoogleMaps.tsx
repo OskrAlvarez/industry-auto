@@ -9,7 +9,7 @@ export function GoogleMaps() {
       6108 Memorial Dr, Stone Mountain, GA 30083
       </p>
         <p className="text-center font-light text-lg p-2 border border-slate-400 rounded-lg">
-        <strong className="text-red-700 font-bold">Headquarter: </strong> 
+        <strong className="text-red-700 font-bold">HeadQuarter: </strong> 
           6428 Dawson Blvd Ste 1224, Norcross, GA 30093 <span>470-998-0313</span>
         </p>
      </div>
