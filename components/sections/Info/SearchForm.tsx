@@ -65,8 +65,8 @@ export function SearchForm() {
               <SelectValue placeholder="Select Model" />
             </SelectTrigger>
             <SelectContent>
-              {models.map((model) => (
-                <SelectItem key={model} value={model}>
+              {models.map((model,index) => (
+                <SelectItem key={`${index}-${model}`} value={model}>
                   {model}
                 </SelectItem>
               ))}
