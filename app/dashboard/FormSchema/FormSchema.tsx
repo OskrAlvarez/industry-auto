@@ -56,6 +56,9 @@ export const productSchema = z.object({
   }),
   model: z.string().min(1, {
     message: 'The model is required'
+  }),
+  version: z.string().max(50, {
+    message: 'The version cant be longer than 50 character'
   })
 })
 

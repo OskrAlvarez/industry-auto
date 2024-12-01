@@ -17,6 +17,7 @@ export interface Product {
   odometer?: number | null;
   transmission?: string | null;
   VNI?: string | null;
+  version?: string | null;
 }
 
 function handleError(error: any) {

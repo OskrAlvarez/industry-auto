@@ -61,6 +61,7 @@ export function FormProduct({ carProduct }: FormProductToEdit) {
       VNI: carProduct ? String(carProduct[0]?.VNI) : "",
       make: carProduct ? carProduct[0]?.make : "",
       model: carProduct ? carProduct[0]?.model : "",
+      version: carProduct ? String(carProduct[0]?.version) : "No Version Provided",
     },
   });
 
@@ -212,6 +213,14 @@ export function FormProduct({ carProduct }: FormProductToEdit) {
           setImageUrls={setImageUrls}
         />
         <CustomMakeSelect control={control} name="make" error={errors.make} label="Select a Make" />
+        <CustomInput 
+          label="Version"
+          type="text"
+          control={control}
+          name="version"
+          placeholder="Version: Sport Cartier #324 master classic"
+          error={errors.version}
+        />
         <div className="flex gap-3 items-center justify-between">
           <CustomInput
             label="Price"
