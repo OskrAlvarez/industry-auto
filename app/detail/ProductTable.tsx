@@ -1,4 +1,4 @@
-import { Gauge, Bolt, Cog, Fuel, Barcode, Stamp } from 'lucide-react'
+import { Gauge, Bolt, Cog, Fuel, Barcode, Stamp, Info } from 'lucide-react'
 import { Card, CardContent } from "@/components/ui/card"
 import { Product } from '@/utils/supabase/products'
 import { formatNumber } from '@/utils/utils'
@@ -9,6 +9,11 @@ interface Props {
 
 export default function ProductTable({ product }: Props) {
   const specs = [
+    { 
+      icon: <Info className="w-5 h-5" />, 
+      label: "Version", 
+      value: `${product?.version}` 
+    },
     { 
       icon: <Gauge className="w-5 h-5" />, 
       label: "Odometer", 
