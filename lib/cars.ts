@@ -409,6 +409,7 @@ export const cars: Car[] = [
       "Fiesta",
       "Probe",
       "Explorer",
+      "Escape",
       "Galaxy",
       "Ka",
       "Puma",
