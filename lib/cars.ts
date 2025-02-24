@@ -179,6 +179,7 @@ export const cars: Car[] = [
       "Trailblazer",
       "Kalos",
       "Aveo",
+      "Silverado 1500",
       "Lacetti",
       "Epica",
       "Captiva",
@@ -1108,6 +1109,7 @@ export const cars: Car[] = [
     id: 70,
     make: "Subaru",
     models: [
+      "Ascent",
       "Legacy",
       "Impreza",
       "SVX",
